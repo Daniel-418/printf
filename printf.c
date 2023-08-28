@@ -19,10 +19,12 @@ int custom_printf(const char *format, ...)
     va_list args;
     char buffer[BUFF_SIZE];
     int buff_ind = 0;
+    int i;
+    int printed;
 
     va_start(args, format);
 
-    for (int i = 0; format && format[i] != '\0'; i++)
+    for (i = 0; format && format[i] != '\0'; i++)
     {
         if (format[i] != '%')
         {
@@ -42,7 +44,7 @@ int custom_printf(const char *format, ...)
             spec.precision = get_precision(format, &i, args);
             spec.size = get_size(format, &i);
             i++;
-            int printed = handle_print(format, &i, args, buffer, spec.flags, spec.width, spec.precision, spec.size);
+            printed = handle_print(format, &i, args, buffer, spec.flags, spec.width, spec.precision, spec.size);
             if (printed == -1)
             {
                 va_end(args);
